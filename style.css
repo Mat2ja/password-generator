@@ -36,7 +36,6 @@ input[type=checkbox] {
 	width: 350px;
 	max-width: 100%;
 }
-
 .result-container {
 	background-color: rgba(0, 0, 0, 0.4);
 	display: flex;
@@ -78,11 +77,21 @@ input[type=checkbox] {
 	width: 100%;
 }
 
+label {
+	user-select: none;
+	width: 100%;
+	cursor: pointer;
+}
+
 .setting {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
 	margin: 15px 0;
+}
+
+.setting:hover label {
+	color: yellow;
 }
 
 @media screen and (max-width: 400px) {
