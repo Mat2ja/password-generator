@@ -40,13 +40,14 @@ clipboardEl.addEventListener('click', () => {
     textarea.remove();
 
     // TODO handle prompt better
-    let prompt = document.createElement('p');
-    prompt.innerHTML = 'Password copied to clipboard';
-    let container = document.querySelector('.container');
-    container.insertAdjacentElement('afterend', prompt);
+    // let prompt = document.createElement('p');
+    // let hasPrompt = true;
+    // prompt.innerHTML = 'Password copied to clipboard';
+    // let container = document.querySelector('.container');
 
+    // container.insertAdjacentElement('afterend', prompt);
 
-
+    alert('Password copied to clipboard');
 })
 
 // Generate password
@@ -76,7 +77,10 @@ function generatePassword(lower, upper, number, symbol, length) {
     //     });
     // };
     // console.log(generatedPassword.slice(0, length));
-
+    if (length > 20) {
+        length = 20;
+        lengthEl.value = length;
+    }
     //* my solution; more random
     for (let i = 0; i < length; i++) {
         // choose random type from the checked types
@@ -113,8 +117,8 @@ function getRandomNumber() {
 }
 
 function getRandomSymbol() {
-    const symbols = ` !"#$%& '()*+,-./:;<=>?@[\\]^_\`{|}~`;
-    let rand = Math.floor(Math.random() * (symbols.length) + 1);
+    const symbols = '!"#$%&\'()*+,-./:;<=>?@[]^_`{}|~';
+    let rand = Math.floor(Math.random() * symbols.length);
     return symbols[rand];
 }
 
