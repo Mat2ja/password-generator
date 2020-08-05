@@ -11,7 +11,6 @@ const ambiguousEl = document.querySelector('#ambiguous');
 const generateEl = document.querySelector('.btn--generate');
 const clipboardEl = document.querySelector('.btn--copy');
 let tooltip = document.querySelector('.tooltiptext');
-
 let settings = document.querySelector('.settings');
 let inputElements = settings.querySelectorAll('input');
 
@@ -25,14 +24,16 @@ const randomFunc = {
     upper: getRandomUpper,
     number: getRandomNumber,
     symbol: getRandomSymbol
-}
+};
 
+// make sure number input is in range
 lengthEl.addEventListener('input', ({ target }) => {
     if (target.value.length > target.maxLength) {
         target.value = target.value.slice(0, target.maxLength);
     };
 });
 
+// focus lenght input on TAB press
 document.addEventListener('keyup', ({ keyCode }) => {
     if (keyCode === 9) {
         // TAB
@@ -41,6 +42,7 @@ document.addEventListener('keyup', ({ keyCode }) => {
     }
 });
 
+// keyboard shortcuts
 document.addEventListener('keydown', ({ keyCode }) => {
     if (keyCode === 13) {
         // ENTER
@@ -51,8 +53,9 @@ document.addEventListener('keydown', ({ keyCode }) => {
     }
 });
 
-
+// whole password generation process
 function startGenerationProcess() {
+    // collect all values
     const length = +lengthEl.value;
     const hasLower = lowercaseEl.checked;
     const hasUpper = uppercaseEl.checked;
@@ -61,10 +64,7 @@ function startGenerationProcess() {
     const excludeSimilar = similarEl.checked;
     const excludeAmbiguous = ambiguousEl.checked;
 
-    if (document.querySelector('.prompt')) {
-        document.querySelector('.prompt').remove();
-    }
-
+    // send values to password generation and store to result
     resultEl.value = generatePassword({
         lower: hasLower,
         upper: hasUpper,
@@ -75,6 +75,7 @@ function startGenerationProcess() {
         length
     });
 
+    // get emojis that show password strength
     let emoji = '';
     let strength = resultEl.value.length;
 
@@ -140,7 +141,7 @@ function startGenerationProcess() {
     };
 
     resultEl.value = `${emoji} ${resultEl.value}`;
-}
+};
 
 //! Generate event on generate button click
 generateEl.addEventListener('click', startGenerationProcess);
@@ -161,21 +162,6 @@ clipboardEl.addEventListener('click', () => {
 
     tooltip.innerHTML = 'Copied 👏';
 
-
-    // TODO handle prompt better
-    // let genPosition = generatorEl.getBoundingClientRect();
-    // let genY = genPosition.top;
-    // console.log(genY);
-
-    // if (!document.querySelector('.prompt')) {
-
-    //     let prompt = document.createElement('p');
-    //     prompt.classList.add('prompt');
-
-    //     prompt.innerText = 'Copied to clipboard';
-    //     document.querySelector('.generator').insertAdjacentElement('beforebegin', prompt);
-    // }
-
     console.log('Password copied to clipboard');
 });
 
@@ -183,15 +169,8 @@ clipboardEl.addEventListener('mouseleave', () => {
     tooltip.innerText = "Copy 📃";
 });
 
-
-// clipboardEl.addEventListener('mouseover', () => {
-//     tooltip.innerHTML = 'Copy to clipboard';
-// });
-
-
 // Generate password
 function generatePassword({ lower, upper, number, symbol, excludeSimilar, excludeAmbiguous, length }) {
-
     let generatedPassword = '';
 
     // counts 'true' values
@@ -204,7 +183,7 @@ function generatePassword({ lower, upper, number, symbol, excludeSimilar, exclud
     // if none is checked
     if (typesCount === 0) {
         return '';
-    }
+    };
 
     // reset length to max if value too large
     let max = lengthEl.max;
@@ -216,8 +195,7 @@ function generatePassword({ lower, upper, number, symbol, excludeSimilar, exclud
     } else if (length < min) {
         length = min;
         lengthEl.value = length;
-    }
-
+    };
 
     for (let i = 0; i < length; i++) {
         // choose random type from the checked types
@@ -235,8 +213,7 @@ function generatePassword({ lower, upper, number, symbol, excludeSimilar, exclud
     console.log('%cGenerated password:', 'color:salmon', generatedPassword);
 
     return generatedPassword;
-}
-
+};
 
 // Generator functions
 function getRandom({ startChar, endChar, excludeSimilar }) {
@@ -252,7 +229,7 @@ function getRandom({ startChar, endChar, excludeSimilar }) {
     }
 
     return randChar;
-}
+};
 
 function getRandomLower({ excludeSimilar }) {
     return getRandom({
@@ -260,7 +237,7 @@ function getRandomLower({ excludeSimilar }) {
         endChar: 'z',
         excludeSimilar
     });
-}
+};
 
 function getRandomUpper({ excludeSimilar }) {
     return getRandom({
@@ -268,7 +245,7 @@ function getRandomUpper({ excludeSimilar }) {
         endChar: 'Z',
         excludeSimilar
     })
-}
+};
 
 function getRandomNumber({ excludeSimilar }) {
     return getRandom({
@@ -276,7 +253,7 @@ function getRandomNumber({ excludeSimilar }) {
         endChar: '9',
         excludeSimilar
     });
-}
+};
 
 function getRandomSymbol({ excludeAmbiguous }) {
     const symbols = ["!", "\"", "#", "$", "%", "&", "\\", "'", "(", ")", "*", "+", ",", "-", ".", "/", ":", ";", "<", "=", ">", "?", "@", "[", "]", "^", "_", "`", "{", "}", "|", "~"];
@@ -289,4 +266,4 @@ function getRandomSymbol({ excludeAmbiguous }) {
     }
 
     return randSymbol;
-}
+};
