@@ -152,8 +152,9 @@ body {
   opacity: 1; }
 
 .prompt {
-  padding: 2em;
+  padding: 0em;
   text-align: center;
   position: absolute;
   left: 50%;
+  top: 60px;
   transform: translateX(-50%); }

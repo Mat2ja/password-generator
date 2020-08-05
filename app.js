@@ -75,9 +75,7 @@ clipboardEl.addEventListener('click', () => {
         
         let prompt = document.createElement('p');
         prompt.classList.add('prompt');
-        
-        prompt.style.top = 30 + 'px';
-        
+                
         prompt.innerText = 'Copied to clipboard';
         document.querySelector('.generator').insertAdjacentElement('beforebegin', prompt);
         console.dir(prompt)
@@ -188,18 +186,3 @@ function getRandomSymbol({ excludeAmbiguous }) {
 
     return randSymbol;
 }
-
-
-const checkmarksEl = document.querySelectorAll('.checkmark');
-
-// for (let checkmark of checkmarksEl) {
-//     checkmark.addEventListener('click', () => {
-//         let checkbox = checkmark.querySelector('input');
-//         console.log(checkbox);
-//         if (checkbox.checked) {
-//             checkbox.checked = false;
-//         } else {
-//             checkbox.checked = true;
-//         }
-//     });
-// }
