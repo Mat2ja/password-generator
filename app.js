@@ -12,7 +12,13 @@ const generateEl = document.querySelector('.btn--generate');
 const clipboardEl = document.querySelector('.btn--copy');
 let tooltip = document.querySelector('.tooltiptext');
 
+let settings = document.querySelector('.settings');
+let inputElements = settings.querySelectorAll('input');
 
+for (let inputEl of inputElements) {
+    // TODO bug with length input event
+    inputEl.addEventListener('input', startGenerationProcess);
+}
 
 // TODO
 const randomFunc = {
@@ -26,11 +32,25 @@ lengthEl.addEventListener('input', ({ target }) => {
     if (target.value.length > target.maxLength) {
         target.value = target.value.slice(0, target.maxLength)
     };
+});
+
+lengthEl.addEventListener('keyup', (e) => {
+    // ENTER
+    if (e.keyCode === 13) {
+        startGenerationProcess();
+    }
 })
 
+document.addEventListener('keyup', (e) => {
+    // TAB
+    if (e.keyCode === 9) {
+        lengthEl.select()
+        lengthEl.focus();
+    }
+});
 
-//! Generate event on generate button click
-generateEl.addEventListener('click', () => {
+
+function startGenerationProcess() {
     const length = +lengthEl.value;
     const hasLower = lowercaseEl.checked;
     const hasUpper = uppercaseEl.checked;
@@ -55,11 +75,8 @@ generateEl.addEventListener('click', () => {
 
     let emoji = '';
     let strength = resultEl.value.length;
-    // if (strength === 0) {
-    //     return;
-    // }
-    
-    switch(strength) {
+
+    switch (strength) {
         case 0:
             return;
         case 1:
@@ -116,12 +133,15 @@ generateEl.addEventListener('click', () => {
         case 20:
             emoji = '😎';
             break;
-        case 21:
-            emoji = '🤯'
-    }
+        default:
+            emoji = '🤯';
+    };
 
     resultEl.value = `${emoji} ${resultEl.value}`;
-});
+}
+
+//! Generate event on generate button click
+generateEl.addEventListener('click', startGenerationProcess);
 
 // Copy password to clipboard
 clipboardEl.addEventListener('click', () => {
@@ -137,7 +157,7 @@ clipboardEl.addEventListener('click', () => {
     document.execCommand('copy');
     textarea.remove();
 
-        tooltip.innerHTML = 'Copied 👏';
+    tooltip.innerHTML = 'Copied 👏';
 
 
     // TODO handle prompt better

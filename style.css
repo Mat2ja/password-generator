@@ -14,7 +14,12 @@ button {
   box-sizing: inherit;
   -webkit-tap-highlight-color: transparent; }
 
-*:not(input) {
+*:not(#length) {
+  user-select: none; }
+
+:focus {
+  outline: none;
+  box-shadow: none;
   user-select: none; }
 
 ::selection {
@@ -76,7 +81,8 @@ body {
   font-size: 1.8rem;
   line-height: 1;
   padding-left: 0.8rem;
-  padding-right: 1.6rem; }
+  padding-right: 1.6rem;
+  cursor: default; }
   .result:focus {
     outline: none;
     box-shadow: none;
