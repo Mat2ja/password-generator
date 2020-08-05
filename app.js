@@ -12,6 +12,7 @@ const generateEl = document.querySelector('.btn--generate');
 const clipboardEl = document.querySelector('.btn--copy');
 
 
+// TODO
 const randomFunc = {
     lower: getRandomLower,
     upper: getRandomUpper,
@@ -36,8 +37,6 @@ generateEl.addEventListener('click', () => {
     const excludeSimilar = similarEl.checked;
     const excludeAmbiguous = ambiguousEl.checked;
 
-    console.log(document.querySelector('.prompt'));
-
     if (document.querySelector('.prompt')) {
         document.querySelector('.prompt').remove();
     }
@@ -51,12 +50,35 @@ generateEl.addEventListener('click', () => {
         excludeAmbiguous,
         length
     });
+
+    let emoji = '';
+    let strength = resultEl.value.length;
+    if (strength <= 4) {
+        emoji = '🤮';
+    } else if (strength <= 6) {
+        emoji = '😕';
+    } else if (strength <= 8) {
+        emoji = '🙂';
+    } else if (strength <= 10) {
+        emoji = '😁';
+    } else if (strength <= 12) {
+        emoji = '😏';
+    } else if (strength <= 14) {
+        emoji = '🥰';
+    } else if (strength <= 16) {
+        emoji = '😎';
+    } else {
+        emoji = '🤯';
+    }
+
+    resultEl.value = `${emoji} ${resultEl.value}`;
 });
 
 // Copy password to clipboard
 clipboardEl.addEventListener('click', () => {
     const textarea = document.createElement('textarea');
-    const password = resultEl.value;
+    //! SLICED ONLY BEACUSE EMOJI AND SPACE
+    const password = resultEl.value.slice(3);
 
     if (!password) return;
 
@@ -72,10 +94,10 @@ clipboardEl.addEventListener('click', () => {
     // console.log(genY);
 
     if (!document.querySelector('.prompt')) {
-        
+
         let prompt = document.createElement('p');
         prompt.classList.add('prompt');
-                
+
         prompt.innerText = 'Copied to clipboard';
         document.querySelector('.generator').insertAdjacentElement('beforebegin', prompt);
         console.dir(prompt)
