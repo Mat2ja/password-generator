@@ -10,6 +10,8 @@ const similarEl = document.querySelector('#similar');
 const ambiguousEl = document.querySelector('#ambiguous');
 const generateEl = document.querySelector('.btn--generate');
 const clipboardEl = document.querySelector('.btn--copy');
+let tooltip = document.querySelector('.tooltiptext');
+
 
 
 // TODO
@@ -53,22 +55,69 @@ generateEl.addEventListener('click', () => {
 
     let emoji = '';
     let strength = resultEl.value.length;
-    if (strength <= 4) {
-        emoji = '🤮';
-    } else if (strength <= 6) {
-        emoji = '😕';
-    } else if (strength <= 8) {
-        emoji = '🙂';
-    } else if (strength <= 10) {
-        emoji = '😁';
-    } else if (strength <= 12) {
-        emoji = '😏';
-    } else if (strength <= 14) {
-        emoji = '🥰';
-    } else if (strength <= 16) {
-        emoji = '😎';
-    } else {
-        emoji = '🤯';
+    // if (strength === 0) {
+    //     return;
+    // }
+    
+    switch(strength) {
+        case 0:
+            return;
+        case 1:
+        case 2:
+        case 3:
+        case 4:
+            emoji = '🤮';
+            break;
+        case 5:
+            emoji = '😔';
+            break;
+        case 6:
+            emoji = '😳';
+            break;
+        case 7:
+            emoji = '🤨';
+            break;
+        case 8:
+            emoji = '🙂';
+            break;
+        case 9:
+            emoji = '😊';
+            break;
+        case 10:
+            emoji = '😄';
+            break;
+        case 11:
+            emoji = '😁';
+            break;
+        case 12:
+            emoji = '😏';
+            break;
+        case 13:
+            emoji = '🤤';
+            break;
+        case 14:
+            emoji = '😜';
+            break;
+        case 15:
+            emoji = '🤪';
+            break;
+        case 16:
+            emoji = '🤩';
+            break;
+        case 17:
+            emoji = '😍';
+            break;
+        case 18:
+            emoji = '🤑';
+            break;
+        case 19:
+            emoji = '🥳';
+            break;
+        case 20:
+            emoji = '😎';
+            break;
+        case 21:
+            emoji = '🤯'
     }
 
     resultEl.value = `${emoji} ${resultEl.value}`;
@@ -77,7 +126,6 @@ generateEl.addEventListener('click', () => {
 // Copy password to clipboard
 clipboardEl.addEventListener('click', () => {
     const textarea = document.createElement('textarea');
-    //! SLICED ONLY BEACUSE EMOJI AND SPACE
     const password = resultEl.value.slice(3);
 
     if (!password) return;
@@ -85,25 +133,39 @@ clipboardEl.addEventListener('click', () => {
     textarea.value = password;
     document.body.append(textarea);
     textarea.select();
+    textarea.setSelectionRange(0, 99999); /*For mobile devices*/
     document.execCommand('copy');
     textarea.remove();
+
+        tooltip.innerHTML = 'Copied 👏';
+
 
     // TODO handle prompt better
     // let genPosition = generatorEl.getBoundingClientRect();
     // let genY = genPosition.top;
     // console.log(genY);
 
-    if (!document.querySelector('.prompt')) {
+    // if (!document.querySelector('.prompt')) {
 
-        let prompt = document.createElement('p');
-        prompt.classList.add('prompt');
+    //     let prompt = document.createElement('p');
+    //     prompt.classList.add('prompt');
 
-        prompt.innerText = 'Copied to clipboard';
-        document.querySelector('.generator').insertAdjacentElement('beforebegin', prompt);
-    }
+    //     prompt.innerText = 'Copied to clipboard';
+    //     document.querySelector('.generator').insertAdjacentElement('beforebegin', prompt);
+    // }
 
     console.log('Password copied to clipboard');
-})
+});
+
+clipboardEl.addEventListener('mouseleave', () => {
+    tooltip.innerText = "Copy 📃";
+});
+
+
+// clipboardEl.addEventListener('mouseover', () => {
+//     tooltip.innerHTML = 'Copy to clipboard';
+// });
+
 
 // Generate password
 function generatePassword({ lower, upper, number, symbol, excludeSimilar, excludeAmbiguous, length }) {
@@ -147,7 +209,7 @@ function generatePassword({ lower, upper, number, symbol, excludeSimilar, exclud
         generatedPassword += randomChar;
     };
 
-    // console.clear();
+    console.clear();
     console.log('%cGenerated password:', 'color:salmon', generatedPassword);
 
     return generatedPassword;
@@ -196,7 +258,7 @@ function getRandomNumber({ excludeSimilar }) {
 
 function getRandomSymbol({ excludeAmbiguous }) {
     const symbols = ["!", "\"", "#", "$", "%", "&", "\\", "'", "(", ")", "*", "+", ",", "-", ".", "/", ":", ";", "<", "=", ">", "?", "@", "[", "]", "^", "_", "`", "{", "}", "|", "~"];
-    const ambiguousCharacters = ["{", "}", "[", "]", "(", ")", "/", "\\", "'", "\"", "`", "~", ",", ";", ":", ".", "<", ">"];
+    const ambiguousCharacters = ["{", "}", "[", "]", "(", ")", "/", "\\", "'", "\"", "`", "~", ",", ";", ":", ".", "<", ">", "|"];
 
     let randSymbol = symbols[Math.floor(Math.random() * symbols.length)];
 
