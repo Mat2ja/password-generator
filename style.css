@@ -11,7 +11,8 @@ button {
 *,
 *::before,
 *::after {
-  box-sizing: inherit; }
+  box-sizing: inherit;
+  -webkit-tap-highlight-color: transparent; }
 
 *:not(input) {
   user-select: none; }
