@@ -1,0 +1,218 @@
+@import url('https://fonts.googleapis.com/css2?family=Work+Sans&display=swap');
+* {
+	margin: 0;
+	padding: 0;
+}
+
+input,
+button {
+	font: inherit;
+	outline: none;
+}
+
+*,
+*::before,
+*::after {
+	box-sizing: inherit;
+}
+
+*:not(input) {
+	user-select: none;
+}
+
+::selection {
+	background: hsla(240, 44%, 41%, 0.99);
+}
+
+html {
+	box-sizing: border-box;
+	font-size: 62.5%;
+	font-family: 'Work Sans', sans-serif;
+
+	@media only screen and (max-width: 500px) {
+		font-size: 50%;
+	}
+}
+
+body {
+	font-size: 1.6rem;
+	background-color: #3b3b98;
+	color: white;
+
+	min-height: 100vh;
+
+	padding: 1.6rem;
+}
+
+.generator {
+	border: 0.5rem dashed rgba(0, 0, 0, 0.4);
+	max-width: 45rem;
+	width: 100%;
+	padding: 1.5em;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+
+	display: flex;
+	flex-direction: column;
+
+	@media only screen and (max-width: 380px) {
+		border: none;
+	}
+
+	&__title {
+		font-size: 1.75em;
+		text-align: center;
+		font-weight: normal;
+		line-height: 1;
+		margin-bottom: 2rem;
+	}
+}
+
+.result-container {
+	background: rgba(0, 0, 0, 0.4);
+	display: flex;
+
+	padding: 0.8rem;
+}
+
+.result {
+	font-family: 'IBM Plex Mono', monospace;
+	background: transparent;
+	flex: 1;
+	border: none;
+	color: white;
+	font-size: 1.8rem;
+	line-height: 1;
+	padding-left: 0.8rem;
+	padding-right: 1.6rem;
+
+	&:focus {
+		outline: none;
+		box-shadow: none;
+		border: none;
+	}
+}
+
+.btn {
+	border: none;
+	padding: 0.75em;
+
+	background: rgba(0, 0, 0, 0.4);
+	color: white;
+
+	cursor: pointer;
+	transition: all 125ms;
+
+	&--copy {
+		background: #3b3b98;
+		padding: 0.5em 0.75em;
+
+		&:hover {
+		}
+	}
+
+	&--generate {
+		&:hover {
+			background: rgba($color: black, $alpha: 0.5);
+		}
+	}
+
+	&:focus {
+		outline: none;
+	}
+}
+
+.settings {
+	margin: 1rem 0;
+}
+
+.setting {
+	label {
+		flex: 1;
+		// margin: 8px 0;
+		line-height: 2.5;
+		display: flex;
+		align-items: center;
+		color: rgba(255, 255, 255, 0.9);
+	}
+
+	&:hover label {
+		color: white;
+	}
+
+	&:hover .checkmark {
+		background: rgba(0, 0, 0, 0.1);
+	}
+
+	&:hover .checkbox:checked ~ .checkmark {
+		background: rgba(0, 0, 0, 0.5);
+	}
+}
+
+#length {
+	padding: 3px 8px;
+	background: rgba(0, 0, 0, 0.4);
+	border: 2px solid rgba(0, 0, 0, 0.4);
+	color: white;
+	width: 70px;
+	line-height: 1;
+
+	margin-left: auto;
+
+}
+
+.checkbox {
+	opacity: 0;
+	visibility: hidden;
+}
+
+.checkmark {
+	background: transparent;
+	border: 2px solid rgba(0, 0, 0, 0.4);
+	height: 25px;
+	width: 25px;
+
+	margin-left: auto;
+
+	position: relative;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	transition: all 125ms;
+
+	@media only screen and (max-width: 500px) {
+		transform: scale(.85);
+		transform-origin: right;
+	}
+}
+
+.setting .checkbox:checked ~ .checkmark {
+	background: rgba(0, 0, 0, 0.4);
+}
+
+.checkmark:after {
+	content: '\2713';
+	position: absolute;
+	opacity: 0;
+	transition: all 125ms;
+
+}
+
+/* Show the checkmark when checked */
+.setting .checkbox:checked ~ .checkmark:after {
+	opacity: 1;
+}
+
+.prompt {
+	padding: 2em;
+	text-align: center;
+
+	position: absolute;
+	left: 50%;
+	transform: translateX(-50%);
+
+	// transition: opacity 400ms;
+}

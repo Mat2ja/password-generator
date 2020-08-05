@@ -13,52 +13,64 @@
     </head>
 
     <body>
-        <div class="container">
-            <h2>Password Generator</h2>
+        <div class="generator">
+            <h1 class="generator__title">Password Generator</h1>
 
             <div class="result-container">
-                <span id="result"></span>
-                <button class="btn" id="clipboard">
+                <input type='text' class="result" readonly>
+                <button class="btn btn--copy" id="clipboard">
                     <i class="far fa-clipboard"></i>
                 </button>
+                </input>
             </div>
 
             <div class="settings">
                 <div class="setting">
-                    <label for="length">Password length</label>
-                    <input type="number" id="length" min='6' max='20' value='10' oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" type="number" maxlength="2">
+                    <label>Password length
+                        <input type="number" id="length" min='4' max='128' value='12' maxlength="3">
+                    </label>
                 </div>
                 <div class="setting">
-                    <label for="uppercase">Include uppercase letters</label>
-                    <input type="checkbox" id="uppercase" checked>
+                    <label>Include uppercase letters
+                        <input type="checkbox" id="uppercase" class="checkbox" checked>
+                        <span class="checkmark"></span>
+                    </label>
                 </div>
                 <div class="setting">
-                    <label for='lowercase'>Include lowercase letters</label>
-                    <input type="checkbox" id="lowercase" checked>
+                    <label>Include lowercase letters
+                        <input type="checkbox" id="lowercase" class="checkbox" checked>
+                        <span class="checkmark"></span>
+                    </label>
                 </div>
                 <div class="setting">
-                    <label for='numbers'>Include numbers</label>
-                    <input type="checkbox" id="numbers" checked>
+                    <label>Include numbers
+                        <input type="checkbox" id="numbers" class="checkbox" checked>
+                        <span class="checkmark"></span>
+                    </label>
                 </div>
                 <div class="setting">
-                    <label for='symbols'>Include symbols</label>
-                    <input type="checkbox" id="symbols" checked>
+                    <label>Include symbols
+                        <input type="checkbox" id="symbols" class="checkbox">
+                        <span class="checkmark"></span>
+                    </label>
                 </div>
                 <div class="setting">
                     <!-- ( e.g. i, l, 1, L, o, 0, O ) -->
-                    <label for='similar'>Exclude Similar Characters</label>
-                    <input type="checkbox" id="similar" checked>
+                    <label>Exclude Similar Characters
+                        <input type="checkbox" id="similar" class="checkbox">
+                        <span class="checkmark"></span>
+                    </label>
                 </div>
                 <div class="setting">
-                    <label for='ambiguous'>Exclude Ambiguous Symbols</label>
-                    <input type="checkbox" id="ambiguous" checked>
+                    <label>Exclude Ambiguous Symbols
+                        <input type="checkbox" id="ambiguous" class="checkbox">
+                        <span class="checkmark"></span>
+                    </label>
                 </div>
             </div>
-            <button class="btn btn-large" id="generate">
-                Generate password
-            </button>
-        </div>
 
+            <button class="btn btn--generate">Generate Password</button>
+        </div>
 
         <script src="https://kit.fontawesome.com/0bbd2487f3.js" crossorigin="anonymous"></script>
         <script src="app.js"></script>

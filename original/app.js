@@ -1,15 +1,14 @@
 // DOM Elements
-const generatorEl = document.querySelector('.generator');
-const resultEl = document.querySelector('.result');
-const lengthEl = document.querySelector('#length');
-const uppercaseEl = document.querySelector('#uppercase');
-const lowercaseEl = document.querySelector('#lowercase');
-const numbersEl = document.querySelector('#numbers');
-const symbolsEl = document.querySelector('#symbols');
-const similarEl = document.querySelector('#similar');
-const ambiguousEl = document.querySelector('#ambiguous');
-const generateEl = document.querySelector('.btn--generate');
-const clipboardEl = document.querySelector('.btn--copy');
+const resultEl = document.getElementById('result');
+const lengthEl = document.getElementById('length');
+const uppercaseEl = document.getElementById('uppercase');
+const lowercaseEl = document.getElementById('lowercase');
+const numbersEl = document.getElementById('numbers');
+const symbolsEl = document.getElementById('symbols');
+const similarEl = document.getElementById('similar');
+const ambiguousEl = document.getElementById('ambiguous');
+const generateEl = document.getElementById('generate');
+const clipboardEl = document.getElementById('clipboard');
 
 
 const randomFunc = {
@@ -18,6 +17,7 @@ const randomFunc = {
     number: getRandomNumber,
     symbol: getRandomSymbol
 }
+
 
 lengthEl.addEventListener('input', ({ target }) => {
     if (target.value.length > target.maxLength) {
@@ -36,13 +36,7 @@ generateEl.addEventListener('click', () => {
     const excludeSimilar = similarEl.checked;
     const excludeAmbiguous = ambiguousEl.checked;
 
-    console.log(document.querySelector('.prompt'));
-
-    if (document.querySelector('.prompt')) {
-        document.querySelector('.prompt').remove();
-    }
-
-    resultEl.value = generatePassword({
+    resultEl.innerText = generatePassword({
         lower: hasLower,
         upper: hasUpper,
         number: hasNumber,
@@ -56,7 +50,7 @@ generateEl.addEventListener('click', () => {
 // Copy password to clipboard
 clipboardEl.addEventListener('click', () => {
     const textarea = document.createElement('textarea');
-    const password = resultEl.value;
+    const password = resultEl.innerText;
 
     if (!password) return;
 
@@ -67,24 +61,8 @@ clipboardEl.addEventListener('click', () => {
     textarea.remove();
 
     // TODO handle prompt better
-    // let genPosition = generatorEl.getBoundingClientRect();
-    // let genY = genPosition.top;
-    // console.log(genY);
 
-    if (!document.querySelector('.prompt')) {
-        
-        let prompt = document.createElement('p');
-        prompt.classList.add('prompt');
-        
-        prompt.style.top = 30 + 'px';
-        
-        prompt.innerText = 'Copied to clipboard';
-        document.querySelector('.generator').insertAdjacentElement('beforebegin', prompt);
-        console.dir(prompt)
-
-    }
-
-    console.log('Password copied to clipboard');
+    alert('Password copied to clipboard');
 })
 
 // Generate password
@@ -129,7 +107,7 @@ function generatePassword({ lower, upper, number, symbol, excludeSimilar, exclud
         generatedPassword += randomChar;
     };
 
-    // console.clear();
+    console.clear();
     console.log('%cGenerated password:', 'color:salmon', generatedPassword);
 
     return generatedPassword;
@@ -190,16 +168,5 @@ function getRandomSymbol({ excludeAmbiguous }) {
 }
 
 
-const checkmarksEl = document.querySelectorAll('.checkmark');
 
-// for (let checkmark of checkmarksEl) {
-//     checkmark.addEventListener('click', () => {
-//         let checkbox = checkmark.querySelector('input');
-//         console.log(checkbox);
-//         if (checkbox.checked) {
-//             checkbox.checked = false;
-//         } else {
-//             checkbox.checked = true;
-//         }
-//     });
-// }
+
