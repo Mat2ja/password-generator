@@ -100,8 +100,6 @@ clipboardEl.addEventListener('click', () => {
 
         prompt.innerText = 'Copied to clipboard';
         document.querySelector('.generator').insertAdjacentElement('beforebegin', prompt);
-        console.dir(prompt)
-
     }
 
     console.log('Password copied to clipboard');
