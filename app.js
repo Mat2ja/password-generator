@@ -20,7 +20,6 @@ for (let inputEl of Array.from(inputElements).slice(1)) {
     inputEl.addEventListener('input', startGenerationProcess);
 }
 
-// TODO
 const randomFunc = {
     lower: getRandomLower,
     upper: getRandomUpper,
@@ -30,25 +29,25 @@ const randomFunc = {
 
 lengthEl.addEventListener('input', ({ target }) => {
     if (target.value.length > target.maxLength) {
-        target.value = target.value.slice(0, target.maxLength)
+        target.value = target.value.slice(0, target.maxLength);
     };
 });
 
-lengthEl.addEventListener('keyup', (e) => {
-    // ENTER
-    if (e.keyCode === 13) {
-        startGenerationProcess();
-    }
-})
-
-document.addEventListener('keyup', (e) => {
-    // TAB
-    if (e.keyCode === 9) {
+document.addEventListener('keyup', ({ keyCode }) => {
+    if (keyCode === 9) {
+        // TAB
         lengthEl.select()
         lengthEl.focus();
     }
+});
+
+document.addEventListener('keydown', ({ keyCode }) => {
     if (keyCode === 13) {
+        // ENTER
         startGenerationProcess();
+    } else if (keyCode === 67 || keyCode === 27) {
+        // C  or ESC (clear)
+        resultEl.value = '';
     }
 });
 
