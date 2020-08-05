@@ -30,6 +30,10 @@ html {
 	font-family: 'Work Sans', sans-serif;
 
 	@media only screen and (max-width: 500px) {
+		font-size: 56.25%;
+	}
+
+	@media only screen and (max-width: 350px) {
 		font-size: 50%;
 	}
 }
@@ -67,6 +71,10 @@ body {
 		font-weight: normal;
 		line-height: 1;
 		margin-bottom: 2rem;
+
+		@media only screen and (max-width: 350px) {
+			font-size: 1.5em;
+		}
 	}
 }
 
@@ -160,7 +168,6 @@ body {
 	line-height: 1;
 
 	margin-left: auto;
-
 }
 
 .checkbox {
@@ -184,7 +191,7 @@ body {
 	transition: all 125ms;
 
 	@media only screen and (max-width: 500px) {
-		transform: scale(.85);
+		transform: scale(0.85);
 		transform-origin: right;
 	}
 }
@@ -198,7 +205,6 @@ body {
 	position: absolute;
 	opacity: 0;
 	transition: all 125ms;
-
 }
 
 /* Show the checkmark when checked */

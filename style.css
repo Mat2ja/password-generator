@@ -25,6 +25,9 @@ html {
   font-family: 'Work Sans', sans-serif; }
   @media only screen and (max-width: 500px) {
     html {
+      font-size: 56.25%; } }
+  @media only screen and (max-width: 350px) {
+    html {
       font-size: 50%; } }
 
 body {
@@ -54,6 +57,9 @@ body {
     font-weight: normal;
     line-height: 1;
     margin-bottom: 2rem; }
+    @media only screen and (max-width: 350px) {
+      .generator__title {
+        font-size: 1.5em; } }
 
 .result-container {
   background: rgba(0, 0, 0, 0.4);
