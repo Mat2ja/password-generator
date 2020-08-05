@@ -15,7 +15,7 @@ let tooltip = document.querySelector('.tooltiptext');
 let settings = document.querySelector('.settings');
 let inputElements = settings.querySelectorAll('input');
 
-for (let inputEl of inputElements) {
+for (let inputEl of Array.from(inputElements).slice(1)) {
     // TODO bug with length input event
     inputEl.addEventListener('input', startGenerationProcess);
 }
@@ -46,6 +46,9 @@ document.addEventListener('keyup', (e) => {
     if (e.keyCode === 9) {
         lengthEl.select()
         lengthEl.focus();
+    }
+    if (keyCode === 13) {
+        startGenerationProcess();
     }
 });
 
